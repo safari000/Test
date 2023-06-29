@@ -1,0 +1,36 @@
+git status -> immer gut zu verwenden, zeigt modifizierte dateien im Vergleich zum letzten Commit
+git add -> fügt dateien zum commit hinzu
+git commit -m "ich bin die Commit-Message, immer schön ausfüllen" -> commitet die hinzugefügten Dateien zum lokalen Repo, WICHITG: erst ab hier logt git tatsächlich was ihr macht und ordnet es dem Benutzer zu der es commited, davor kann passieren was will, git weiß das nicht -> wir (Yannic, ich, Zug etc) wissen das nicht
+git pull -> zieht den Stand vom remote Branch auf den lokalen Branch, bei unterschiede wird automatisch ein merge ausgeführt, es müssen eventuell mergekonflikte behoben werden
+git branch -> zeigt alle branches an und markiert den aktuellen Branch
+git branch Name -> erzeugt neuen branch mit dem Namen "Name", erzeugt für jedes feature einen neuen Branch, macht es überschtlicher und man kommt sich weniger in die Quere
+git switch Name -> wechselt den branch Name, es dürfen keine uncommited changes vorhanden sein
+git push -> pusht den lokalen Stand auf den remote branch, IMMER davor git pull, WICHTIG: ab hier sind irgendwelche Spuren nur schwer zu verwischen und je nach einstellungen auch gar nicht mehr (sollten beim commiten Probleme entstehen kann man bis vor diesem Schritt noch was machen, im Zweifel bescheid geben und ich kann drüber schauen)
+git push -f -> gibt es nicht, egal was Yannic oder so sagt (nur anwenden wenn man wirklich weiß was man tut)
+git log -> zeigt die historie des aktuellen brachnes
+
+workflow:
+ES WIRD NIE AUF DEM "main" GEARBEITET, DA KOMMEN NUR FERTIGE GETESTETE VERSIONEN HIN
+nach dem innit commit (erstellen des repo):
+Zustand: ihr seid auf dem main
+$ git branch dev_aufgabe -> (name kann sein was es will, sollte man eindeutig zuordnen können, arbeitet z.B. an einer Netzwerkomponente kann das sein: dev_network)
+$ git swicht dev_aufgabe
+$ git status
+-> code schreiben
+$ git status
+$ git pull
+$ git status
+git add Program.cs -> (oder anderen Dateinamen, was halt da als modified steht, wobei beim ersten add erstmal hinzugefügt werden muss was von git geloggt wird und da kann alles rein außer der obj und bin ordner)
+git commit -m "Hier kommt rein was ihr gemacht habt" -> (kommt keine ordentliche Commit message kann man das ganze repo auch einfach in den Müll werfen, MACHT DAS AUF JEDENFALL, ZUMINDEST EIN ODER ZWEI WORTE MACHT ALLES EINFACHER)
+-> nochmal prüfen ob alles passt
+$ git pull -> (mache ich nochmal zur Sicherheit, nnicht das Partner genau dann etwas commited, wobei der eigentlich eh nichts im gleichen Branch verloren hat; das zu machen kann viel ärger ersparen)
+$ git push 
+-> code schreiben und ab den code schreiben wiederholen
+-> wenn das feature fertig ist:
+$ git pull
+$ git switch main
+$ git pull
+$ git switch dev_aufgabe
+$ git merge -> hier mit partner abstimmen das er am besten nicht commited bzw merged auf main
+$ git push
+$ git branch dev_next_feature -> und von vorne
